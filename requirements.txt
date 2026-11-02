@@ -1,0 +1,10 @@
+duckdb>=0.10
+numpy>=1.24
+pandas>=2.0
+scipy>=1.11
+pyarrow>=14
+plotly>=5.18
+polars>=0.20
+openpyxl>=3.1
+XlsxWriter>=3.2
+tzdata>=2024.1

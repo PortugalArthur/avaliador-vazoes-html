@@ -1,0 +1,205 @@
+[
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\analise_sequencias_cobre.py",
+    "destino": "calculos\\analise_sequencias_cobre.py",
+    "sha256": "014de52851e47d2bdd60268b55ec64baf2fce304a62e8a1dc5aee87dd42fc636",
+    "sha256_destino": "bb1a95dd28ed116c05a114e0e3ad15956364685bce54330f9d95c1a101b22732",
+    "adaptacao": "Janelas históricas executadas em lote no mesmo núcleo, com reposicionamento das datas."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\base_estatistica_cobre.py",
+    "destino": "calculos\\base_estatistica_cobre.py",
+    "sha256": "1103c71983d0809d97c3f977554a686672a2f7b74024b7a2434624e005d6ed5e",
+    "sha256_destino": "3b47e9c61fd2be49020c41521fb5c1cbd903a74b7f37aa630282d65829805941",
+    "adaptacao": "Entrada em memória para reutilizar o mesmo agrupamento e evitar releituras por UHE."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\comparacao_espacial_historico.py",
+    "destino": "calculos\\comparacao_espacial_historico.py",
+    "sha256": "5fc929c8c6dce2acfe93aa9bce659cb13d04f202f818cbb0e4343a5306809eeb",
+    "sha256_destino": "5fc929c8c6dce2acfe93aa9bce659cb13d04f202f818cbb0e4343a5306809eeb",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\correlacao_anual_bacias.py",
+    "destino": "calculos\\correlacao_anual_bacias.py",
+    "sha256": "220778568524e09aca7808b3e61938f4bbdb4aaed832f4ea8a6945a14e0f6fc2",
+    "sha256_destino": "220778568524e09aca7808b3e61938f4bbdb4aaed832f4ea8a6945a14e0f6fc2",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\correlacao_espacial_cobre.py",
+    "destino": "calculos\\correlacao_espacial_cobre.py",
+    "sha256": "3cbe22d82602ac61908a9d66ca0d77e5610b51c69bc3e02d42b2b12135d1f5df",
+    "sha256_destino": "5bb3e1cbec4bd8d1059cb1ea40fcab1d21874cddb5760cedc7ca2c37ccbba2b3",
+    "adaptacao": "Consumo integral de consulta agregada para compatibilidade com DuckDB 2.0."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\indicadores_p90_sequencias.py",
+    "destino": "calculos\\indicadores_p90_sequencias.py",
+    "sha256": "f2781e4a1faa968860415eb5583c5c73aee1ff872a602fb93e9682e006a29541",
+    "sha256_destino": "f2781e4a1faa968860415eb5583c5c73aee1ff872a602fb93e9682e006a29541",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\indicadores_testes_cobre.py",
+    "destino": "calculos\\indicadores_testes_cobre.py",
+    "sha256": "67146262b1bf4360338f0810a469b9ac5ccd4b8c1bbf28fdd048df3b48ab85a6",
+    "sha256_destino": "d1e92b864d41324a94e08b0f9951f82bc0c6f80173d3edc5ad9298bcd382c1b7",
+    "adaptacao": "Máscara local de resultados válidos para dispensar a interface Streamlit."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\resultado_global_ks.py",
+    "destino": "calculos\\resultado_global_ks.py",
+    "sha256": "f7b6fdc4af9eac17fa9e52c8f38123db8c8b5f1beb0acfaa85c94c0450ee3338",
+    "sha256_destino": "f7b6fdc4af9eac17fa9e52c8f38123db8c8b5f1beb0acfaa85c94c0450ee3338",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\resultado_global_levene.py",
+    "destino": "calculos\\resultado_global_levene.py",
+    "sha256": "de3cbcb8b9b3ee1ec361bcb461edc466bd87ccefd304f5be27d99890742e185a",
+    "sha256_destino": "de3cbcb8b9b3ee1ec361bcb461edc466bd87ccefd304f5be27d99890742e185a",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\resultado_global_sequencias.py",
+    "destino": "calculos\\resultado_global_sequencias.py",
+    "sha256": "c9491fcb71af42fc3e2d308dc92023d7fc4a0d1633b7422b40203db38337daa4",
+    "sha256_destino": "c9491fcb71af42fc3e2d308dc92023d7fc4a0d1633b7422b40203db38337daa4",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\resultado_global_welch.py",
+    "destino": "calculos\\resultado_global_welch.py",
+    "sha256": "ac104ed9ff100205fe7d6976e84d63489193798db39c8cbe9e5066f8ed433e0a",
+    "sha256_destino": "ac104ed9ff100205fe7d6976e84d63489193798db39c8cbe9e5066f8ed433e0a",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\resumo_espacial_bacias.py",
+    "destino": "calculos\\resumo_espacial_bacias.py",
+    "sha256": "0434e0ef0e6ac6ecdc9c18dc94640b44b84f1b16652083c1091212f57442c8cb",
+    "sha256_destino": "0434e0ef0e6ac6ecdc9c18dc94640b44b84f1b16652083c1091212f57442c8cb",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\teste_ks_cobre.py",
+    "destino": "calculos\\teste_ks_cobre.py",
+    "sha256": "92e66b078de824d0dabd111083b1da36c1259a6765ec8ff1ff078a144f89a8ba",
+    "sha256_destino": "92e66b078de824d0dabd111083b1da36c1259a6765ec8ff1ff078a144f89a8ba",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\teste_levene_cobre.py",
+    "destino": "calculos\\teste_levene_cobre.py",
+    "sha256": "ac26f1b0208ca94ac7842863e1928016029b303b1ad1711a09749bf0dbf1fc79",
+    "sha256_destino": "ac26f1b0208ca94ac7842863e1928016029b303b1ad1711a09749bf0dbf1fc79",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\teste_welch_cobre.py",
+    "destino": "calculos\\teste_welch_cobre.py",
+    "sha256": "49a425bf830591939443ddd7c69f6a36c073114ae077bd337e84baf16b8e3a0a",
+    "sha256_destino": "49a425bf830591939443ddd7c69f6a36c073114ae077bd337e84baf16b8e3a0a",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\calculos\\__init__.py",
+    "destino": "calculos\\__init__.py",
+    "sha256": "8271d5527e964476b9a3f39c7b91c3485a2b3a51354cf3dab08a4d2bcd2b313c",
+    "sha256_destino": "8271d5527e964476b9a3f39c7b91c3485a2b3a51354cf3dab08a4d2bcd2b313c",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\dados\\cadastro_bacias.py",
+    "destino": "dados\\cadastro_bacias.py",
+    "sha256": "eaa23139e5a0568813bf5fffb8cfb4edfdc0381d48e2ec17443064a18ef56adb",
+    "sha256_destino": "eaa23139e5a0568813bf5fffb8cfb4edfdc0381d48e2ec17443064a18ef56adb",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\dados\\cadastro_bacias_newave.py",
+    "destino": "dados\\cadastro_bacias_newave.py",
+    "sha256": "ec6d73e847ab135a8aec530b51e731a73702e83b2c0f85349fa6192e689db3fb",
+    "sha256_destino": "ec6d73e847ab135a8aec530b51e731a73702e83b2c0f85349fa6192e689db3fb",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\dados\\cadastro_bacias_ons_maio_2026.json",
+    "destino": "dados\\cadastro_bacias_ons_maio_2026.json",
+    "sha256": "94781a58796dbf05d01d7860ef013b52278486c15ff29d3f4f2279ae49cf2324",
+    "sha256_destino": "94781a58796dbf05d01d7860ef013b52278486c15ff29d3f4f2279ae49cf2324",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\dados\\metadados_vazoes.py",
+    "destino": "dados\\metadados_vazoes.py",
+    "sha256": "391f47101db7a0174ebfc46698d37491d083300a0fc2319b3366d7337f9fc407",
+    "sha256_destino": "391f47101db7a0174ebfc46698d37491d083300a0fc2319b3366d7337f9fc407",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\dados\\validacao_dados_cobre.py",
+    "destino": "dados\\validacao_dados_cobre.py",
+    "sha256": "c38aad72ee527b27b8d6c466e34b907980bdcfccf3c68323868e6a5c1fc5c597",
+    "sha256_destino": "c38aad72ee527b27b8d6c466e34b907980bdcfccf3c68323868e6a5c1fc5c597",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\dados\\__init__.py",
+    "destino": "dados\\__init__.py",
+    "sha256": "292340d87707cc2a39d7ba3df00661040a73d3592e14cf56669a2aee3d5b7647",
+    "sha256_destino": "292340d87707cc2a39d7ba3df00661040a73d3592e14cf56669a2aee3d5b7647",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\geradores\\consolidar_vazoes_incrementais_e_lags.py",
+    "destino": "geradores\\consolidar_vazoes_incrementais_e_lags.py",
+    "sha256": "df2a59d92d7cb7a5b08e92b14e78f7c13028649b7727500d245a5e215d7895fe",
+    "sha256_destino": "df2a59d92d7cb7a5b08e92b14e78f7c13028649b7727500d245a5e215d7895fe",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\geradores\\converter_qincr_newave.py",
+    "destino": "geradores\\converter_qincr_newave.py",
+    "sha256": "75ac728e253744b7171ce7f79f838d553b1c6c545bd251b5741ab8264eff8b50",
+    "sha256_destino": "75ac728e253744b7171ce7f79f838d553b1c6c545bd251b5741ab8264eff8b50",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\geradores\\parametros_par_consolidado.py",
+    "destino": "geradores\\parametros_par_consolidado.py",
+    "sha256": "cd9525166be0a644a3abb84de604139540890a6bda228b9e211e0687c9798d4e",
+    "sha256_destino": "cd9525166be0a644a3abb84de604139540890a6bda228b9e211e0687c9798d4e",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\geradores\\parametros_par_newave.py",
+    "destino": "geradores\\parametros_par_newave.py",
+    "sha256": "d39b5f469be1ba95a5126f64e15dba8526bce3fa2f9c9799b0d4c3f68facf543",
+    "sha256_destino": "d39b5f469be1ba95a5126f64e15dba8526bce3fa2f9c9799b0d4c3f68facf543",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\geradores\\__init__.py",
+    "destino": "geradores\\__init__.py",
+    "sha256": "d71d0b7dbf02170d834b45a10f512019ae98ab301e7c3faf6963ddb15c812bb0",
+    "sha256_destino": "d71d0b7dbf02170d834b45a10f512019ae98ab301e7c3faf6963ddb15c812bb0",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\infraestrutura\\preparar_ambiente.py",
+    "destino": "infraestrutura\\preparar_ambiente.py",
+    "sha256": "23b51d9af860db4b75d5815825d6255cc4da3ff4013e1b06c0b8643565a18d0c",
+    "sha256_destino": "23b51d9af860db4b75d5815825d6255cc4da3ff4013e1b06c0b8643565a18d0c",
+    "adaptacao": "Cópia preservada."
+  },
+  {
+    "origem": "C:\\Users\\Pichau\\Desktop\\TESTES_ESTATISTICOS_COBRE\\infraestrutura\\__init__.py",
+    "destino": "infraestrutura\\__init__.py",
+    "sha256": "26546744826e6840f6ef35fc3bd7aa81e4bad8da121472198ce4843fb6e7fc8b",
+    "sha256_destino": "26546744826e6840f6ef35fc3bd7aa81e4bad8da121472198ce4843fb6e7fc8b",
+    "adaptacao": "Cópia preservada."
+  }
+]

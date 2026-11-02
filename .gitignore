@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.python_packages/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ultimas_entradas.json
+/relatorios/*
+!/relatorios/.gitkeep
+/parquet gerado novo modelo/*
+!/parquet gerado novo modelo/.gitkeep
+/parquet gerado newave/*
+!/parquet gerado newave/.gitkeep
+*.parquet
+outputs/
+*.tmp
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+Desktop.ini

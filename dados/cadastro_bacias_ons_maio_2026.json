@@ -1,0 +1,1156 @@
+{
+  "versao": "ONS-2026-05-subdivisoes-2",
+  "fonte": {
+    "titulo": "Diagrama Esquemático das Usinas Hidroelétricas do SIN — Maio 2026",
+    "autor": "Operador Nacional do Sistema Elétrico (ONS)",
+    "arquivo": "Hidroelétricas - Maio 2026 (3).pdf",
+    "pagina": 1,
+    "sha256": "9bd165f0c549e77d1955751b81227a61932dc142284ba3e4c2a5323ce1cc83d8"
+  },
+  "criterio": "Grandes bacias conforme as cores da legenda, com opção de detalhar as cinco subdivisões explicitamente delimitadas no diagrama dentro de Paraná: Grande, Paranaíba, Tietê, Paranapanema e Iguaçu. As associações das usinas às subdivisões são explícitas no cadastro.",
+  "notas": [
+    "Atlântico NE Ocidental e Atlântico NE Oriental constam na legenda, sem usinas identificadas neste diagrama.",
+    "COMP PAF-MOX corresponde aos aproveitamentos Moxotó e Paulo Afonso representados no mesmo trecho do São Francisco.",
+    "TUCURUI II é uma expansão da usina, agrupada com TUCURUÍ, na mesma bacia.",
+    "Os aliases resolvem abreviações conhecidas; não se utiliza similaridade aproximada nem igualdade de códigos entre modelos.",
+    "Na visão com subdivisões, cada usina aparece em um único grupo. Os trechos de Paraná fora das cinco subdivisões são exibidos como Paraná — demais trechos, sem repetir o agregado da bacia principal."
+  ],
+  "referencias_aliases": [
+    {
+      "nomes": "Bariri / Álvaro de Souza Lima",
+      "url": "https://www.ons.org.br/AcervoDigitalDocumentosEPublicacoes/Hist%C3%B3ria%20da%20opera%C3%A7%C3%A3o%20do%20sistema%20interligado%20nacional%20-%20Vol%201.pdf"
+    },
+    {
+      "nomes": "Governador Parigot de Souza / Capivari-Cachoeira",
+      "url": "https://www.ons.org.br/sites/multimidia/Documentos%20Compartilhados/vazoes_naturais/2011/8-23.html"
+    },
+    {
+      "nomes": "Salto Caxias / Governador José Richa",
+      "url": "https://portal1.snirh.gov.br/server/rest/services/Hosted/Resolu%C3%A7%C3%A3o_3_WTL1/MapServer/259"
+    }
+  ],
+  "bacias": [
+    {
+      "id": 1,
+      "nome": "Amazonas",
+      "usinas": [
+        {
+          "nome_pdf": "GUAPORÉ",
+          "aliases": [],
+          "rio": "Guaporé"
+        },
+        {
+          "nome_pdf": "RONDON II",
+          "aliases": [],
+          "rio": "Comemoração / Ji-Paraná"
+        },
+        {
+          "nome_pdf": "SAMUEL",
+          "aliases": [],
+          "rio": "Jamari"
+        },
+        {
+          "nome_pdf": "BALBINA",
+          "aliases": [],
+          "rio": "Uatumã"
+        },
+        {
+          "nome_pdf": "JIRAU",
+          "aliases": [],
+          "rio": "Madeira"
+        },
+        {
+          "nome_pdf": "STO ANTÔNIO",
+          "aliases": [
+            "STO ANTONIO",
+            "SANTO ANTONIO"
+          ],
+          "rio": "Madeira"
+        },
+        {
+          "nome_pdf": "STO ANTÔNIO JARI",
+          "aliases": [
+            "STO ANT JARI",
+            "SANTO ANTONIO DO JARI"
+          ],
+          "rio": "Jari"
+        },
+        {
+          "nome_pdf": "DARDANELOS",
+          "aliases": [],
+          "rio": "Aripuanã"
+        },
+        {
+          "nome_pdf": "JURUENA",
+          "aliases": [],
+          "rio": "Juruena / Tapajós"
+        },
+        {
+          "nome_pdf": "SALTO APIACÁS",
+          "aliases": [
+            "SLT APIACAS"
+          ],
+          "rio": "Apiacás / Teles Pires"
+        },
+        {
+          "nome_pdf": "SINOP",
+          "aliases": [],
+          "rio": "Teles Pires"
+        },
+        {
+          "nome_pdf": "COLÍDER",
+          "aliases": [],
+          "rio": "Teles Pires"
+        },
+        {
+          "nome_pdf": "TELES PIRES",
+          "aliases": [],
+          "rio": "Teles Pires"
+        },
+        {
+          "nome_pdf": "SÃO MANOEL",
+          "aliases": [],
+          "rio": "Teles Pires"
+        },
+        {
+          "nome_pdf": "CURUÁ-UNA",
+          "aliases": [],
+          "rio": "Curuá-Una"
+        },
+        {
+          "nome_pdf": "BELO MONTE",
+          "aliases": [],
+          "rio": "Xingu"
+        },
+        {
+          "nome_pdf": "PIMENTAL",
+          "aliases": [],
+          "rio": "Xingu"
+        },
+        {
+          "nome_pdf": "CACHOEIRA CALDEIRÃO",
+          "aliases": [
+            "CACH.CALDEIR"
+          ],
+          "rio": "Araguari (AP)"
+        },
+        {
+          "nome_pdf": "C. NUNES",
+          "aliases": [
+            "COARACY NUNE",
+            "COARACY NUNES"
+          ],
+          "rio": "Araguari (AP)"
+        },
+        {
+          "nome_pdf": "FERREIRA GOMES",
+          "aliases": [
+            "FERREIRA GOM"
+          ],
+          "rio": "Araguari (AP)"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nome": "Atlântico NE Ocidental",
+      "usinas": []
+    },
+    {
+      "id": 3,
+      "nome": "Atlântico NE Oriental",
+      "usinas": []
+    },
+    {
+      "id": 4,
+      "nome": "Parnaíba",
+      "usinas": [
+        {
+          "nome_pdf": "B. ESPERANÇA",
+          "aliases": [
+            "BOA ESPERANCA"
+          ],
+          "rio": "Parnaíba"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "nome": "Tocantins-Araguaia",
+      "usinas": [
+        {
+          "nome_pdf": "SERRA DA MESA",
+          "aliases": [
+            "SERRA MESA"
+          ],
+          "rio": "Tocantins"
+        },
+        {
+          "nome_pdf": "CANA BRAVA",
+          "aliases": [],
+          "rio": "Tocantins"
+        },
+        {
+          "nome_pdf": "SÃO SALVADOR",
+          "aliases": [],
+          "rio": "Tocantins"
+        },
+        {
+          "nome_pdf": "PEIXE ANGICAL",
+          "aliases": [
+            "PEIXE ANGIC"
+          ],
+          "rio": "Tocantins"
+        },
+        {
+          "nome_pdf": "LAJEADO",
+          "aliases": [],
+          "rio": "Tocantins"
+        },
+        {
+          "nome_pdf": "ESTREITO TOC",
+          "aliases": [],
+          "rio": "Tocantins"
+        },
+        {
+          "nome_pdf": "TUCURUÍ",
+          "aliases": [
+            "TUCURUI II"
+          ],
+          "rio": "Tocantins"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "nome": "São Francisco",
+      "usinas": [
+        {
+          "nome_pdf": "RETIRO BAIXO",
+          "aliases": [],
+          "rio": "Paraopeba"
+        },
+        {
+          "nome_pdf": "TRÊS MARIAS",
+          "aliases": [],
+          "rio": "São Francisco"
+        },
+        {
+          "nome_pdf": "QUEIMADO",
+          "aliases": [],
+          "rio": "Preto / Paracatu"
+        },
+        {
+          "nome_pdf": "SOBRADINHO",
+          "aliases": [],
+          "rio": "São Francisco"
+        },
+        {
+          "nome_pdf": "ITAPARICA",
+          "aliases": [],
+          "rio": "São Francisco"
+        },
+        {
+          "nome_pdf": "MOXOTÓ / P. AFONSO 1, 2 e 3 / P. AFONSO 4",
+          "aliases": [
+            "COMP PAF-MOX",
+            "MOXOTO",
+            "PAULO AFONSO 1 2 3",
+            "PAULO AFONSO 4"
+          ],
+          "rio": "São Francisco"
+        },
+        {
+          "nome_pdf": "XINGÓ",
+          "aliases": [],
+          "rio": "São Francisco"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "nome": "Atlântico Leste",
+      "usinas": [
+        {
+          "nome_pdf": "IRAPÉ",
+          "aliases": [],
+          "rio": "Jequitinhonha"
+        },
+        {
+          "nome_pdf": "ITAPEBI",
+          "aliases": [],
+          "rio": "Jequitinhonha"
+        },
+        {
+          "nome_pdf": "STA CLARA MG",
+          "aliases": [
+            "SANTA CLARA MG"
+          ],
+          "rio": "Mucuri"
+        },
+        {
+          "nome_pdf": "PEDRA DO CAVALO",
+          "aliases": [
+            "P. CAVALO"
+          ],
+          "rio": "Paraguaçu"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "nome": "Atlântico Sudeste",
+      "usinas": [
+        {
+          "nome_pdf": "H. BORDEN",
+          "aliases": [
+            "HENRY BORDEN"
+          ],
+          "rio": "Cubatão (SP)"
+        },
+        {
+          "nome_pdf": "PARAIBUNA",
+          "aliases": [],
+          "rio": "Paraibuna / Paraíba do Sul"
+        },
+        {
+          "nome_pdf": "JAGUARI",
+          "aliases": [],
+          "rio": "Jaguari / Paraíba do Sul"
+        },
+        {
+          "nome_pdf": "STA. BRANCA",
+          "aliases": [
+            "SANTA BRANCA"
+          ],
+          "rio": "Paraíba do Sul"
+        },
+        {
+          "nome_pdf": "FUNIL",
+          "aliases": [],
+          "rio": "Paraíba do Sul"
+        },
+        {
+          "nome_pdf": "SANTA CECÍLIA",
+          "aliases": [],
+          "rio": "Paraíba do Sul"
+        },
+        {
+          "nome_pdf": "PICADA",
+          "aliases": [],
+          "rio": "Peixe / Paraibuna"
+        },
+        {
+          "nome_pdf": "SOBRAGI",
+          "aliases": [],
+          "rio": "Paraibuna"
+        },
+        {
+          "nome_pdf": "ANTA",
+          "aliases": [],
+          "rio": "Paraibuna"
+        },
+        {
+          "nome_pdf": "SIMPLÍCIO",
+          "aliases": [],
+          "rio": "Paraibuna"
+        },
+        {
+          "nome_pdf": "ILHA DOS POMBOS",
+          "aliases": [
+            "ILHA POMBOS"
+          ],
+          "rio": "Paraíba do Sul"
+        },
+        {
+          "nome_pdf": "B. BRAUNA",
+          "aliases": [
+            "BARRA BRAUNA"
+          ],
+          "rio": "Pomba / Paraíba do Sul"
+        },
+        {
+          "nome_pdf": "LAJES",
+          "aliases": [],
+          "rio": "Ribeirão das Lajes"
+        },
+        {
+          "nome_pdf": "TÓCOS",
+          "aliases": [],
+          "rio": "Piraí"
+        },
+        {
+          "nome_pdf": "FONTES",
+          "aliases": [],
+          "rio": "Ribeirão das Lajes"
+        },
+        {
+          "nome_pdf": "NILO PEÇANHA",
+          "aliases": [],
+          "rio": "Ribeirão das Lajes"
+        },
+        {
+          "nome_pdf": "VIGÁRIO",
+          "aliases": [],
+          "rio": "Piraí"
+        },
+        {
+          "nome_pdf": "SANTANA",
+          "aliases": [],
+          "rio": "Piraí"
+        },
+        {
+          "nome_pdf": "P. PASSOS",
+          "aliases": [
+            "PEREIRA PASSOS"
+          ],
+          "rio": "Ribeirão das Lajes"
+        },
+        {
+          "nome_pdf": "GUILMAN-AMORIM",
+          "aliases": [
+            "GUILMAN-AMOR"
+          ],
+          "rio": "Piracicaba / Doce"
+        },
+        {
+          "nome_pdf": "SÁ CARVALHO",
+          "aliases": [],
+          "rio": "Santo Antônio / Doce"
+        },
+        {
+          "nome_pdf": "S. GRANDE",
+          "aliases": [
+            "SALTO GRANDE"
+          ],
+          "rio": "Santo Antônio / Doce"
+        },
+        {
+          "nome_pdf": "P. ESTRELA",
+          "aliases": [
+            "PORTO ESTRELA"
+          ],
+          "rio": "Santo Antônio / Doce"
+        },
+        {
+          "nome_pdf": "CANDONGA",
+          "aliases": [],
+          "rio": "Doce"
+        },
+        {
+          "nome_pdf": "BAGUARI",
+          "aliases": [],
+          "rio": "Doce"
+        },
+        {
+          "nome_pdf": "AIMORÉS",
+          "aliases": [],
+          "rio": "Doce"
+        },
+        {
+          "nome_pdf": "MASCARENHAS",
+          "aliases": [],
+          "rio": "Doce"
+        },
+        {
+          "nome_pdf": "ROSAL",
+          "aliases": [],
+          "rio": "Itabapoana"
+        },
+        {
+          "nome_pdf": "SUIÇA",
+          "aliases": [
+            "SUICA"
+          ],
+          "rio": "Santa Maria"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "nome": "Atlântico Sul",
+      "usinas": [
+        {
+          "nome_pdf": "ERNESTINA",
+          "aliases": [],
+          "rio": "Jacuí"
+        },
+        {
+          "nome_pdf": "PASSO REAL",
+          "aliases": [],
+          "rio": "Jacuí"
+        },
+        {
+          "nome_pdf": "JACUÍ",
+          "aliases": [],
+          "rio": "Jacuí"
+        },
+        {
+          "nome_pdf": "ITAÚBA",
+          "aliases": [],
+          "rio": "Jacuí"
+        },
+        {
+          "nome_pdf": "D. FRANCISCA",
+          "aliases": [
+            "DONA FRANCISCA"
+          ],
+          "rio": "Jacuí"
+        },
+        {
+          "nome_pdf": "CASTRO ALVES",
+          "aliases": [],
+          "rio": "Taquari-Antas"
+        },
+        {
+          "nome_pdf": "MONTE CLARO",
+          "aliases": [],
+          "rio": "Taquari-Antas"
+        },
+        {
+          "nome_pdf": "14 DE JULHO",
+          "aliases": [],
+          "rio": "Taquari-Antas"
+        },
+        {
+          "nome_pdf": "CANASTRA",
+          "aliases": [],
+          "rio": "Santa Maria / Sinos"
+        },
+        {
+          "nome_pdf": "G. P. SOUZA",
+          "aliases": [
+            "G.P. SOUZA",
+            "GOVERNADOR PARIGOT DE SOUZA"
+          ],
+          "rio": "Capivari / Cachoeira"
+        },
+        {
+          "nome_pdf": "SALTO PILÃO",
+          "aliases": [],
+          "rio": "Itajaí"
+        },
+        {
+          "nome_pdf": "FOZ DO PRATA",
+          "aliases": [],
+          "rio": "Prata / Taquari-Antas"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "nome": "Paraguai",
+      "usinas": [
+        {
+          "nome_pdf": "JAURU",
+          "aliases": [],
+          "rio": "Jauru"
+        },
+        {
+          "nome_pdf": "ITIQUIRA I",
+          "aliases": [],
+          "rio": "Itiquira"
+        },
+        {
+          "nome_pdf": "ITIQUIRA II",
+          "aliases": [],
+          "rio": "Itiquira"
+        },
+        {
+          "nome_pdf": "P. PEDRA",
+          "aliases": [
+            "PONTE PEDRA"
+          ],
+          "rio": "Correntes"
+        },
+        {
+          "nome_pdf": "MANSO",
+          "aliases": [],
+          "rio": "Manso / Cuiabá"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "nome": "Paraná",
+      "usinas": [
+        {
+          "nome_pdf": "CAMARGOS",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "ITUTINGA",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "FUNIL - GRANDE",
+          "aliases": [
+            "FUNIL-GRANDE"
+          ],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "FURNAS",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "MASCARENHAS DE MORAES",
+          "aliases": [
+            "M. DE MORAES"
+          ],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "ESTREITO",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "JAGUARA",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "IGARAPAVA",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "VOLTA GRANDE",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "PORTO COLÔMBIA",
+          "aliases": [
+            "P. COLOMBIA"
+          ],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "CACONDE",
+          "aliases": [],
+          "rio": "Pardo / Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "E. DA CUNHA",
+          "aliases": [],
+          "rio": "Pardo / Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "A. S. OLIVEIRA",
+          "aliases": [
+            "A.S.OLIVEIRA"
+          ],
+          "rio": "Pardo / Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "MARIMBONDO",
+          "aliases": [],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "ÁGUA VERMELHA",
+          "aliases": [
+            "A. VERMELHA"
+          ],
+          "rio": "Grande",
+          "subdivisao_id": 1101
+        },
+        {
+          "nome_pdf": "BATALHA",
+          "aliases": [],
+          "rio": "São Marcos / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "SERRA DO FACÃO",
+          "aliases": [
+            "SERRA FACAO"
+          ],
+          "rio": "São Marcos / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "EMBORCAÇÃO",
+          "aliases": [],
+          "rio": "Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "NOVA PONTE",
+          "aliases": [],
+          "rio": "Araguari / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "MIRANDA",
+          "aliases": [],
+          "rio": "Araguari / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "CAPIM BRANCO 1",
+          "aliases": [
+            "CAPIM BRANC1"
+          ],
+          "rio": "Araguari / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "CAPIM BRANCO 2",
+          "aliases": [
+            "CAPIM BRANC2"
+          ],
+          "rio": "Araguari / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "CORUMBÁ IV",
+          "aliases": [],
+          "rio": "Corumbá / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "CORUMBÁ III",
+          "aliases": [],
+          "rio": "Corumbá / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "CORUMBÁ I",
+          "aliases": [],
+          "rio": "Corumbá / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "ITUMBIARA",
+          "aliases": [],
+          "rio": "Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "C. DOURADA",
+          "aliases": [
+            "CACH.DOURADA",
+            "CACHOEIRA DOURADA"
+          ],
+          "rio": "Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "SÃO SIMÃO",
+          "aliases": [],
+          "rio": "Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "ESPORA",
+          "aliases": [],
+          "rio": "Corrente / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "SALTO",
+          "aliases": [],
+          "rio": "Verde / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "SALTO RIO VERDINHO",
+          "aliases": [
+            "SLT VERDINHO"
+          ],
+          "rio": "Verde / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "ESTRELA",
+          "aliases": [],
+          "rio": "Corrente / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "CAÇU",
+          "aliases": [],
+          "rio": "Claro / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "BARRA DOS COQUEIROS",
+          "aliases": [
+            "B. COQUEIROS"
+          ],
+          "rio": "Claro / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "FOZ DO RIO CLARO",
+          "aliases": [
+            "FOZ R. CLARO"
+          ],
+          "rio": "Claro / Paranaíba",
+          "subdivisao_id": 1102
+        },
+        {
+          "nome_pdf": "ILHA SOLTEIRA",
+          "aliases": [
+            "I. SOLTEIRA"
+          ],
+          "rio": "Paraná"
+        },
+        {
+          "nome_pdf": "BARRA BONITA",
+          "aliases": [],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "BARIRI",
+          "aliases": [
+            "A.S. LIMA",
+            "ALVARO DE SOUZA LIMA"
+          ],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "IBITINGA",
+          "aliases": [],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "PROMISSÃO",
+          "aliases": [],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "N. AVANHANDAVA",
+          "aliases": [
+            "NAVANHANDAVA",
+            "NOVA AVANHANDAVA"
+          ],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "TRÊS IRMÃOS",
+          "aliases": [],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "PONTE NOVA",
+          "aliases": [],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "EDGARD DE SOUZA",
+          "aliases": [],
+          "rio": "Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "TRAIÇÃO",
+          "aliases": [],
+          "rio": "Pinheiros / Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "PEDREIRA",
+          "aliases": [],
+          "rio": "Pinheiros / Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "BILLINGS",
+          "aliases": [],
+          "rio": "Pinheiros / Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "GUARAPIRANGA",
+          "aliases": [],
+          "rio": "Guarapiranga / Tietê",
+          "subdivisao_id": 1103
+        },
+        {
+          "nome_pdf": "JUPIÁ",
+          "aliases": [],
+          "rio": "Paraná"
+        },
+        {
+          "nome_pdf": "PORTO PRIMAVERA",
+          "aliases": [
+            "P. PRIMAVERA"
+          ],
+          "rio": "Paraná"
+        },
+        {
+          "nome_pdf": "SÃO DOMINGOS",
+          "aliases": [],
+          "rio": "Verde / Paraná"
+        },
+        {
+          "nome_pdf": "A. A. LAYDNER",
+          "aliases": [
+            "A.A. LAYDNER",
+            "JURUMIRIM"
+          ],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "PIRAJU",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "PARANAPANEMA",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "CHAVANTES",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "OURINHOS",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "L. N. GARCEZ",
+          "aliases": [
+            "L.N. GARCEZ"
+          ],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "CANOAS II",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "CANOAS I",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "MAUÁ",
+          "aliases": [],
+          "rio": "Tibagi / Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "CAPIVARA",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "TAQUARUÇU",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "ROSANA",
+          "aliases": [],
+          "rio": "Paranapanema",
+          "subdivisao_id": 1104
+        },
+        {
+          "nome_pdf": "ITAIPU",
+          "aliases": [],
+          "rio": "Paraná"
+        },
+        {
+          "nome_pdf": "STA CLARA PR",
+          "aliases": [
+            "SANTA CLARA PR"
+          ],
+          "rio": "Jordão / Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "FUNDÃO",
+          "aliases": [],
+          "rio": "Jordão / Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "JORDÃO",
+          "aliases": [],
+          "rio": "Jordão / Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "GOV. BENTO MUNHOZ",
+          "aliases": [
+            "G.B. MUNHOZ"
+          ],
+          "rio": "Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "SEGREDO",
+          "aliases": [],
+          "rio": "Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "SALTO SANTIAGO",
+          "aliases": [
+            "SLT.SANTIAGO"
+          ],
+          "rio": "Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "SALTO OSÓRIO",
+          "aliases": [],
+          "rio": "Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "GOV. JOSÉ RICHA",
+          "aliases": [
+            "SALTO CAXIAS"
+          ],
+          "rio": "Iguaçu",
+          "subdivisao_id": 1105
+        },
+        {
+          "nome_pdf": "BAIXO IGUAÇU",
+          "aliases": [],
+          "rio": "Iguaçu",
+          "subdivisao_id": 1105
+        }
+      ],
+      "subdivisoes": [
+        {
+          "id": 1101,
+          "nome": "Grande"
+        },
+        {
+          "id": 1102,
+          "nome": "Paranaíba"
+        },
+        {
+          "id": 1103,
+          "nome": "Tietê"
+        },
+        {
+          "id": 1104,
+          "nome": "Paranapanema"
+        },
+        {
+          "id": 1105,
+          "nome": "Iguaçu"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "nome": "Uruguai",
+      "usinas": [
+        {
+          "nome_pdf": "BARRA GRANDE",
+          "aliases": [],
+          "rio": "Pelotas"
+        },
+        {
+          "nome_pdf": "SÃO ROQUE",
+          "aliases": [],
+          "rio": "Canoas"
+        },
+        {
+          "nome_pdf": "GARIBALDI",
+          "aliases": [],
+          "rio": "Canoas"
+        },
+        {
+          "nome_pdf": "CAMPOS NOVOS",
+          "aliases": [],
+          "rio": "Canoas"
+        },
+        {
+          "nome_pdf": "MACHADINHO",
+          "aliases": [],
+          "rio": "Uruguai"
+        },
+        {
+          "nome_pdf": "ITÁ",
+          "aliases": [],
+          "rio": "Uruguai"
+        },
+        {
+          "nome_pdf": "PASSO FUNDO",
+          "aliases": [],
+          "rio": "Passo Fundo / Uruguai"
+        },
+        {
+          "nome_pdf": "MONJOLINHO",
+          "aliases": [],
+          "rio": "Passo Fundo / Uruguai"
+        },
+        {
+          "nome_pdf": "QUEBRA-QUEIXO",
+          "aliases": [
+            "QUEBRA QUEIX"
+          ],
+          "rio": "Chapecó / Uruguai"
+        },
+        {
+          "nome_pdf": "SÃO JOSÉ",
+          "aliases": [],
+          "rio": "Ijuí / Uruguai"
+        },
+        {
+          "nome_pdf": "PASSO S. JOÃO",
+          "aliases": [
+            "PASSO S JOAO",
+            "PASSO SAO JOAO"
+          ],
+          "rio": "Ijuí / Uruguai"
+        },
+        {
+          "nome_pdf": "FOZ DO CHAPECÓ",
+          "aliases": [
+            "FOZ CHAPECO"
+          ],
+          "rio": "Uruguai"
+        }
+      ]
+    }
+  ]
+}
