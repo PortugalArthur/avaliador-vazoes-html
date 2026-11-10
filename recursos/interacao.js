@@ -213,7 +213,7 @@ window.AVALIADOR={ready:false,manifesto:M,state:S,load,objects,array,summaries,e
 $('#visao-sin').onclick=()=>{S.view='sin';render();};$('#visao-usina').onclick=()=>{S.view='usina';render();};
 $('#titulo').textContent=M.modo+' de vazões — '+M.modelos.map(m=>m.nome).join(' e ');
 $('#identificacao').textContent=`${M.usinas.length} usinas · ${M.estagios[0].rotulo} a ${M.estagios.at(-1).rotulo} · Cada modelo comparado ao seu histórico`;
-for(const m of M.modelos)note($('#fontes'),`${m.nome}: ${m.cenario_n} cenários; histórico ${m.historico.join(' a ')}. Origem do período: ${m.origem_periodo}.`);
+for(const m of M.modelos)note($('#fontes'),`${m.nome}: ${m.cenario_n} cenários; histórico ${m.historico.join(' a ')}. Origem do período: ${m.origem_periodo}.${m.historico_fonte?' Arquivo histórico: '+m.historico_fonte:''}`);
 for(const f of M.fontes)note($('#fontes'),`${f.caminho} · ${fmt(f.bytes)} bytes · SHA-256: ${f.sha256}`);
 $('#rodape').textContent=`Gerado em ${new Date(M.gerado_em).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'})} — horário de Brasília · Versão ${M.versao} · Relatório independente, sem servidor.`;
 render();

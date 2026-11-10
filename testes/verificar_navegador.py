@@ -43,6 +43,7 @@ def verificar(caminho,pasta,real=False):
         t=time.perf_counter();page.goto(Path(caminho).resolve().as_uri(),wait_until='domcontentloaded',timeout=300000)
         page.wait_for_function('window.AVALIADOR?.ready===true',timeout=180000)
         resultado['abertura_segundos']=round(time.perf_counter()-t,3)
+        nomes_modelos=page.evaluate('AVALIADOR.manifesto.modelos.map(m=>m.nome)')
         assert page.locator('#abas [role=tab]').count()==5
         assert 'Resultados gerais' not in page.locator('#abas').text_content()
         assert page.locator('.js-plotly-plot').count()==0
@@ -56,7 +57,7 @@ def verificar(caminho,pasta,real=False):
             if tab in ['medias','variancias','distribuicao']:
                 assert page.locator('.metrica').count()==12
                 titles=page.locator('.modelo-cabecalho h3').all_text_contents()
-                assert titles==[m+' — '+kind for kind in ['Indicadores','Resumo do teste por estágio','Ranking de usinas por estágios reprovados','Memorial completo'] for m in ['Novo modelo','NEWAVE']],titles
+                assert titles==[m+' — '+kind for kind in ['Indicadores','Resumo do teste por estágio','Ranking de usinas por estágios reprovados','Memorial completo'] for m in nomes_modelos],titles
             if tab=='sequencias':assert page.locator('.metrica').count()==12
             if tab=='espacial':
                 annual=page.evaluate(VERIFICAR_ANUAL)
@@ -98,7 +99,7 @@ def verificar(caminho,pasta,real=False):
             assert not page.evaluate('AVALIADOR.error||null'),tab
             assert page.locator('.js-plotly-plot').count()==plots,tab
             names=page.locator('#conteudo .modelo-cabecalho h3').all_text_contents()
-            assert names[:2]==['Novo modelo','NEWAVE'],(tab,names)
+            assert names[:2]==nomes_modelos,(tab,names)
             fields=page.evaluate("Array.from(document.querySelectorAll('.js-plotly-plot')).map(e=>({types:e.data.map(t=>t.type),ytitle:e._fullLayout.yaxis.title.text,colors:e.data.map(t=>t.line?.color||t.marker?.color),annotations:e.layout.annotations||[],dataN:e.data.map(t=>(t.y||[]).length)}))")
             resultado['abas'][tab]={'graficos':plots,'figuras':fields}
             assert all(f['ytitle'] and not f['ytitle'].startswith('Click') for f in fields)
@@ -125,7 +126,7 @@ def verificar(caminho,pasta,real=False):
         resultado['ecdf_D']=ec
         # Numeric sort and synchronized upper scrollbar on the full memorial.
         page.evaluate("()=>AVALIADOR.go('sin','medias')")
-        panel=page.locator('.bloco-modelo').filter(has=page.get_by_role('heading',name='Novo modelo — Memorial completo',exact=True)).locator('.painel')
+        panel=page.locator('.bloco-modelo').filter(has=page.get_by_role('heading',name=nomes_modelos[0]+' — Memorial completo',exact=True)).locator('.painel')
         panel.locator('th button').filter(has_text='p-valor').click()
         vals=panel.locator('tbody tr').evaluate_all("rows=>rows.map(r=>{const cs=Array.from(r.closest('table').querySelectorAll('thead th button')).map(x=>x.textContent.replace(/[↕↑↓]/g,'').trim().toLowerCase());return r.children[cs.indexOf('p-valor')]?.title;}).filter(Boolean).map(x=>Number(x.replace(',','.')))")
         assert vals==sorted(vals),vals

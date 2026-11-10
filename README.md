@@ -1,12 +1,25 @@
 # Avaliador de vazões em HTML
 
-Versão **1.1.0**. Avaliação de séries de vazões incrementais do novo modelo
+Versão **1.2.0**. Avaliação de séries de vazões incrementais do novo modelo
 (COBRE) e do NEWAVE contra seus respectivos históricos, em relatório HTML offline.
 
 Abra **GERAR_RELATORIO_HTML.bat** para selecionar as entradas e gerar o relatório.
 
+Abra **EXPORTAR_PARQUET_EXCEL.bat** para consultar os Parquets reais do novo modelo,
+NEWAVE ou histórico e exportar linhas filtradas exclusivamente para Excel (.xlsx), sem recalcular valores.
+[Como usar o exportador](documentacao/EXPORTAR_PARQUET_CSV.md).
+
+Para o histórico, há também **EXPORTAR_HISTORICO_EXCEL.bat**, com filtros de
+usina, período e mês do ano, sem campos de cenários.
+
 O programa oferece **Análise** de um modelo ou **Comparação** com os dois.
 Cada modelo é avaliado contra seu histórico, com significância fixa de 5%.
+
+Em **Comparação**, escolha **Novo modelo × NEWAVE** ou **Novo modelo × Novo modelo**.
+Para duas versões do novo modelo, selecione o Parquet e o deck correspondentes
+a cada versão e informe seus nomes. Cada versão usa o histórico do seu próprio
+deck, com período editável separadamente. Os testes continuam sendo de cada
+fonte contra seu histórico. [Uso e validação](documentacao/COMPARACAO_ENTRE_VERSOES.md).
 
 Os relatórios são gravados em **relatorios/** e funcionam diretamente no
 navegador, sem servidor ou conexão com a internet.

@@ -73,12 +73,15 @@ def calcular_modelo(fonte,historico_original,pasta,arquivo,progresso):
     hp=Path(pasta)/f'historico_{chave}.parquet'
     h=recortar_historico(fonte,historico_original,hp)
     por_h={int(u):g for u,g in h.groupby('hydro_id',sort=False)}
-    meta={'key':chave,'nome':ROTULOS[chave],'cor':CORES[chave],
+    rotulo=fonte.rotulo or ROTULOS[chave]
+    meta={'key':chave,'nome':rotulo,'cor':CORES[chave],
+          'historico_fonte':fonte.historico_caminho or str(historico_original),
+          'historico_disponivel':fonte.limites_h,
           'historico':[fonte.inicio_h,fonte.fim_h],'origem_periodo':fonte.origem_periodo,
           'cenario_n':fonte.resumo['cenarios'],'uhe':{},'testes':{},
           'stage_ids':[s for s in sorted(fonte.calendario,key=lambda s:fonte.calendario[s]['ordem'])],
           'hydro_ids':sorted(fonte.nomes),'ids_deck':fonte.ids_deck,'motivos_espaciais':MOTIVOS}
-    progresso(f'{ROTULOS[chave]} — correlações espaciais mensais…')
+    progresso(f'{rotulo} — correlações espaciais mensais…')
     espacial=gerar_correlacao_espacial(fonte.caminho,fonte.nomes,fonte.calendario)
     meta['spatial_hydros']=list(espacial.hydro_ids)
     meta['espacial']=[arquivo.bloco(f'{chave}_esp_{i}',_matriz_espacial(espacial,i)) for i in range(len(espacial.stage_ids))]
@@ -88,7 +91,7 @@ def calcular_modelo(fonte,historico_original,pasta,arquivo,progresso):
     meta['avisos_historicos']=rh.avisos
     cadastro=organizar_agrupamento_bacias(associar_usinas_bacias(fonte.nomes,ler_cadastro_bacias()),True)
     meta['cadastro']=tabela(cadastro)
-    progresso(f'{ROTULOS[chave]} — correlações anuais entre bacias…')
+    progresso(f'{rotulo} — correlações anuais entre bacias…')
     if cadastro.bacia_id.notna().any():
         anual=gerar_medias_anuais_bacias(fonte.caminho,hp,fonte.calendario,cadastro)
         meta['anos_completos']=anual.anos_completos;meta['anos_incompletos']=anual.anos_incompletos
@@ -139,7 +142,7 @@ def calcular_modelo(fonte,historico_original,pasta,arquivo,progresso):
                                   'linhas_sequencias':{k:len(v['r']) for k,v in seq_dados.items()},
                                   'blocos_sequencias':{k:arquivo.bloco(f'{chave}_u_{uid}_seq_{k}',v) for k,v in seq_dados.items()}}
             if n==1 or n%10==0 or n==len(fonte.nomes):
-                progresso(f'{ROTULOS[chave]} — testes, vazões e sequências: {n}/{len(fonte.nomes)} usinas')
+                progresso(f'{rotulo} — testes, vazões e sequências: {n}/{len(fonte.nomes)} usinas')
     for k,lista in frames.items():
         frame=adicionar_tempo(pd.concat(lista,ignore_index=True),fonte)
         meta['testes'][k]=arquivo.bloco(f'{chave}_t_{k}',tabela(frame))

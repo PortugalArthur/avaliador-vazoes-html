@@ -1,5 +1,10 @@
 # Avaliador de vazões em HTML
 
+**Atualização de 06/11/2026 — versão local 1.2.0:** o modo Comparação também
+aceita **Novo modelo × Novo modelo**, com deck, histórico e identificação de
+versão por fonte. As contas foram preservadas. Consulte
+[Comparação entre versões](COMPARACAO_ENTRE_VERSOES.md).
+
 Novo projeto independente, na Área de Trabalho, para avaliar novo modelo
 (COBRE), NEWAVE ou ambos contra seus respectivos históricos.
 
