@@ -53,12 +53,21 @@ amarronzado; histórico é preto.
 - Correlação espacial: correlação mensal da UHE por bacia e usinas da bacia.
 - Sequências: quatro boxplots, com Máximo/Média, para o horizonte completo.
 
-Na visão geral, Correlação espacial apresenta os **boxplots da correlação anual
-entre bacias**, com seletor de bacia de referência, distribuição completa dos
-coeficientes dos cenários e ponto histórico preto. O novo modelo aparece primeiro,
-seguido de NEWAVE, com o mesmo eixo. Abaixo ficam os quartis e todos os memoriais.
-Essa é a única análise com gráficos na visão geral. A análise de sequências apresenta P90 e P50 por usina e
-os percentuais gerais. Correlações e percentis não recebem decisão de hipótese.
+Na visão geral do SIN, a aba **Correlação espacial** permite selecionar **Bacia A**
+e **Bacia B**. Para cada estágio, calcula-se Pearson sobre a soma das vazões
+incrementais das usinas de cada bacia, pareando os totais sintéticos pelo mesmo
+cenário. A referência histórica compara os totais das bacias do mesmo mês civil
+e ano, e se repete em outros estágios do mesmo mês do calendário.
+
+O gráfico apresenta as correlações sintética e histórica em barras. Os memoriais
+mostram a composição das bacias, o resumo por estágio e os totais pareados que
+entram no cálculo. Cada total exige valores válidos de todas as usinas da bacia.
+Os memoriais mostram as contagens e os motivos de correlações indisponíveis.
+
+O ranking do teste de médias inclui o raio espectral anual por usina quando
+os parâmetros do ajuste permitem calculá-lo. A análise de sequências apresenta
+P90 e P50 por usina e os percentuais gerais. Correlações e percentis são
+descritivos.
 
 As tabelas oferecem busca, ordenação numérica, paginação e rolagem horizontal
 superior e inferior. Memoriais maiores ficam recolhidos. Buscas e ordenações

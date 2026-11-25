@@ -10,20 +10,6 @@ garantir_dependencias({'playwright':'playwright>=1.50','psutil':'psutil>=5.9'})
 from playwright.sync_api import sync_playwright
 import psutil
 
-# Compara o que foi desenhado diretamente com todos os coeficientes incorporados.
-VERIFICAR_ANUAL="""async()=>{
- const A=AVALIADOR,ref=A.state.states['sin-espacial'].basin,plots=Array.from(document.querySelectorAll('.js-plotly-plot')),result=[];
- for(let i=0;i<A.manifesto.modelos.length;i++){
-  const m=A.manifesto.modelos[i],rows=A.objects(await A.load(m.anual_resumo)).filter(r=>r['Bacia A']===ref||r['Bacia B']===ref),tr=plots[i].data,boxes=tr.filter(t=>t.type==='box'),hist=tr.find(t=>t.name==='Histórico');let validCount=0,coincide=true;
-  for(const row of rows){const name=row['Bacia A']===ref?row['Bacia B']:row['Bacia A'],values=A.objects(await A.load(m.anual_pares[row.par])).filter(r=>Number.isFinite(r['Correlação'])),box=boxes.find(t=>t.x[0]===name);validCount+=values.length;
-   if(values.length)coincide&&=!!box&&box.y.length===values.length&&box.y.every((v,j)=>v===values[j]['Correlação']);else coincide&&=!box;
-   const h=row['Correlação histórica'],j=hist?.x.indexOf(name)??-1;coincide&&=Number.isFinite(h)?j>=0&&hist.y[j]===h:j===-1;
-  }
-  result.push({modelo:m.nome,caixas:boxes.length,coeficientes:validCount,pontos_historicos:hist?.y.length||0,coincide});
- }
- return {referencia:ref,modelos:result,coincide:result.every(r=>r.coincide)};
-}"""
-
 def verificar(caminho,pasta,real=False):
     pasta=Path(pasta);pasta.mkdir(parents=True,exist_ok=True)
     resultado={'arquivo':str(caminho),'offline':True,'abas':{},'erros':[],'requisicoes_externas':[]}
@@ -50,28 +36,24 @@ def verificar(caminho,pasta,real=False):
         assert page.locator('.metrica').count()==12
         print('Primeira visão utilizável em',resultado['abertura_segundos'],'segundos.',flush=True)
         page.screenshot(path=str(pasta/'visao_geral_medias.png'))
-        # As cinco abas reúnem seus resumos; a correlação anual contém os boxplots.
+        # Correlação do SIN: dois seletores e barras agrupadas, com histórico mensal.
         for tab in ['medias','variancias','distribuicao','espacial','sequencias']:
             page.evaluate('([view,tab])=>AVALIADOR.go(view,tab)',['sin',tab])
-            assert page.locator('.js-plotly-plot').count()==(2 if tab=='espacial' else 0),tab
+            assert page.locator('.js-plotly-plot').count()==(len(nomes_modelos) if tab=='espacial' else 0),tab
             if tab in ['medias','variancias','distribuicao']:
                 assert page.locator('.metrica').count()==12
                 titles=page.locator('.modelo-cabecalho h3').all_text_contents()
                 assert titles==[m+' — '+kind for kind in ['Indicadores','Resumo do teste por estágio','Ranking de usinas por estágios reprovados','Memorial completo'] for m in nomes_modelos],titles
             if tab=='sequencias':assert page.locator('.metrica').count()==12
             if tab=='espacial':
-                annual=page.evaluate(VERIFICAR_ANUAL)
-                assert annual['coincide'],annual
-                resultado['anual_bacias']=annual
-                page.locator('section.secao').first.screenshot(path=str(pasta/'correlacao_anual_bacias.png'))
-                # Selecionar a bacia do outro lado do par deve reaproveitar o mesmo r.
-                choice=page.evaluate("async()=>{const A=AVALIADOR,m=A.manifesto.modelos[0],r=A.objects(await A.load(m.anual_resumo)).find(r=>Number.isFinite(r.Q1)&&Number.isFinite(r['Correlação histórica']));return r?.['Bacia B']||null;}")
-                if choice:
-                    page.get_by_label('Bacia de referência — correlação anual',exact=True).select_option(choice)
-                    page.wait_for_function('AVALIADOR.ready===true',timeout=120000)
-                    reverse=page.evaluate(VERIFICAR_ANUAL)
-                    assert reverse['coincide'],reverse
-                    resultado['anual_referencia_invertida']=reverse
+                a=page.get_by_label('Bacia A',exact=True)
+                b=page.get_by_label('Bacia B',exact=True)
+                assert a.input_value()!=b.input_value()
+                curves=page.locator('.js-plotly-plot').evaluate_all('(plots)=>plots.map(p=>({n:p.data.map(t=>t.y.length),range:p.layout.yaxis.range,types:p.data.map(t=>t.type),mode:p.layout.barmode}))')
+                stage_count=page.evaluate('AVALIADOR.manifesto.estagios.length')
+                assert all(c['n']==[stage_count,stage_count] and c['range']==[-1.05,1.05] for c in curves)
+                assert all(c['types']==['bar','bar'] and c['mode']=='group' for c in curves)
+                resultado['espacial_sin_bacias_por_estagio']=True
             assert not page.evaluate('AVALIADOR.error||null'),tab
         # Memorial geral volumoso é paginado através de blocos, inclusive busca/ordem.
         page.get_by_text('Resumos por trajetória',exact=True).click()

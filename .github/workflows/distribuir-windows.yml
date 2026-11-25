@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/distribuir-windows.yml
+      - aplicacao/executar.py
     tags: ['v*']
   workflow_dispatch:
 
@@ -42,5 +43,5 @@ jobs:
             Write-Host "A versão $tag já foi publicada."
             exit 0
           }
-          gh release create $tag --target $env:GITHUB_SHA --title "Avaliador de Vazões HTML $tag" --notes 'Pacote portátil para Windows x64. Extraia todo o ZIP e execute GERAR_RELATORIO_HTML.bat.' dist/AVALIADOR_VAZOES_HTML_WINDOWS_X64.zip dist/AVALIADOR_VAZOES_HTML_WINDOWS_X64.sha256
+          gh release create $tag --target $env:GITHUB_SHA --title "Avaliador de Vazões HTML $tag" --notes 'Pacote portátil para Windows x64. A visão geral do SIN apresenta correlação espacial por estágio com seletores de Bacia A e Bacia B. Extraia todo o ZIP e execute GERAR_RELATORIO_HTML.bat.' dist/AVALIADOR_VAZOES_HTML_WINDOWS_X64.zip dist/AVALIADOR_VAZOES_HTML_WINDOWS_X64.sha256
           exit $LASTEXITCODE

@@ -57,7 +57,7 @@ class ArquivoHTML:
             aviso=(RAIZ/'recursos'/nome).read_text(encoding='utf-8').replace('--','—')
             self.f.write('<!-- '+nome+'\n'+aviso+'\n-->\n')
         self.f.write('<script>'+get_plotlyjs().replace('</script','<\\/script')+'</script>\n')
-        for nome in ['fflate.js','interacao.js']:
+        for nome in ['fflate.js','correlacao_bacias.js','interacao.js']:
             self.f.write('<script>\n'+(RAIZ/'recursos'/nome).read_text(encoding='utf-8').replace('</script','<\\/script')+'\n</script>\n')
         self.f.write('</body></html>');self.f.close()
         os.replace(self.tmp,self.destino)

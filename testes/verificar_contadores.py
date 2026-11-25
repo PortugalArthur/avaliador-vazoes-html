@@ -202,6 +202,8 @@ def conferir_demais(m, dados):
             igual(i['percentual_sintetico_maior'], 100*maior/len(validas) if validas else None)
             percentis.append(dict(percentil=q, medida=i['medida'], acima=maior,
                                   comparaveis=len(validas), percentual=i['percentual_sintetico_maior']))
+    if 'anual_resumo' not in m:
+        return dict(percentis=percentis)
     pares = 0
     for r in objetos(dados[m['anual_resumo']]):
         vals = objetos(dados[m['anual_pares'][r['par']]])
@@ -221,8 +223,9 @@ def verificar(caminho, pasta, pw):
     for modelo in m['modelos']:
         chaves.update(modelo['testes'].values())
         chaves.update(modelo['percentis'].values())
-        chaves.add(modelo['anual_resumo'])
-        chaves.update(modelo['anual_pares'].values())
+        if 'anual_resumo' in modelo:
+            chaves.add(modelo['anual_resumo'])
+            chaves.update(modelo['anual_pares'].values())
     dados = dict(blocos(caminho, chaves))
     print('Blocos lidos:', caminho.name, flush=True)
     resultado = dict(arquivo=str(caminho), etapas=len(m['estagios']), modelos=[], erros_navegador=[])

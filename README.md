@@ -1,6 +1,6 @@
 # Avaliador de vazões em HTML
 
-Versão **1.2.1**. Avaliação de séries de vazões incrementais do novo modelo
+Versão **1.2.2**. Avaliação de séries de vazões incrementais do novo modelo
 (COBRE) e do NEWAVE contra seus respectivos históricos, em relatório HTML offline.
 
 Abra **GERAR_RELATORIO_HTML.bat** para selecionar as entradas e gerar o relatório.
@@ -66,9 +66,12 @@ bibliotecas instaladas localmente são ignorados pelo Git.
 
 As duas visões têm cinco abas: Teste de médias, Teste de variâncias, Teste de
 distribuição, Correlação espacial e Análise de sequências. A visão do SIN reúne
-indicadores e memoriais na respectiva análise. Na correlação espacial, exibe os
-boxplots anuais entre bacias com ponto histórico. A visão por usina mantém filtros
-independentes em cada aba.
+indicadores e memoriais na respectiva análise. Em Correlação espacial, selecione
+**Bacia A** e **Bacia B** para comparar, por estágio, a correlação de Pearson
+sintética e histórica das somas de vazões incrementais de cada bacia. O sintético
+pareia cenários e o histórico pareia anos do mesmo mês civil. O ranking do teste
+de médias também apresenta o raio espectral anual por usina quando disponível.
+A visão por usina mantém filtros independentes em cada aba.
 
 Welch bilateral, Levene com centro na média e KS com distribuição limite de
 Kolmogorov usam significância fixa de 5%. Correlações e P50/P90 de sequências

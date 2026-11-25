@@ -16,7 +16,7 @@ from calculos.analise_sequencias_cobre import organizar_horizonte,calcular_seque
 from calculos.indicadores_p90_sequencias import calcular_indicadores_p90,calcular_indicadores_p50
 from calculos.correlacao_espacial_cobre import gerar_correlacao_espacial,MOTIVOS
 from calculos.comparacao_espacial_historico import gerar_correlacao_historica
-from calculos.correlacao_anual_bacias import gerar_medias_anuais_bacias,comparar_bacias_anuais
+from calculos.raio_espectral import calcular_raios_espectrais
 from dados.cadastro_bacias import ler_cadastro_bacias,associar_usinas_bacias,organizar_agrupamento_bacias
 
 def adicionar_tempo(df,fonte):
@@ -81,6 +81,8 @@ def calcular_modelo(fonte,historico_original,pasta,arquivo,progresso):
           'cenario_n':fonte.resumo['cenarios'],'uhe':{},'testes':{},
           'stage_ids':[s for s in sorted(fonte.calendario,key=lambda s:fonte.calendario[s]['ordem'])],
           'hydro_ids':sorted(fonte.nomes),'ids_deck':fonte.ids_deck,'motivos_espaciais':MOTIVOS}
+    progresso(f'{rotulo} — raio espectral anual por usina…')
+    meta['raios_espectrais']=calcular_raios_espectrais(fonte.caminho,fonte.calendario,fonte.nomes)
     progresso(f'{rotulo} — correlações espaciais mensais…')
     espacial=gerar_correlacao_espacial(fonte.caminho,fonte.nomes,fonte.calendario)
     meta['spatial_hydros']=list(espacial.hydro_ids)
@@ -91,32 +93,6 @@ def calcular_modelo(fonte,historico_original,pasta,arquivo,progresso):
     meta['avisos_historicos']=rh.avisos
     cadastro=organizar_agrupamento_bacias(associar_usinas_bacias(fonte.nomes,ler_cadastro_bacias()),True)
     meta['cadastro']=tabela(cadastro)
-    progresso(f'{rotulo} — correlações anuais entre bacias…')
-    if cadastro.bacia_id.notna().any():
-        anual=gerar_medias_anuais_bacias(fonte.caminho,hp,fonte.calendario,cadastro)
-        meta['anos_completos']=anual.anos_completos;meta['anos_incompletos']=anual.anos_incompletos
-        meta['anual_medias']=arquivo.bloco(f'{chave}_am',{'sintetico':tabela(anual.sintetico),'historico':tabela(anual.historico),'composicao':tabela(anual.composicao),'sem_bacia':tabela(anual.sem_bacia)})
-        pares=[];meta['anual_pares']={}
-        for a in sorted(anual.composicao.bacia_id.unique()):
-            coef,resumo=comparar_bacias_anuais(anual,int(a))
-            for b in sorted(resumo.bacia_id.unique()) if not resumo.empty else []:
-                if int(b)<=int(a):continue
-                linha=resumo.loc[resumo.bacia_id.eq(b)].iloc[0].to_dict()
-                v=coef.loc[coef.bacia_id.eq(b)]
-                validos=v['Correlação'].dropna().to_numpy()
-                q=np.quantile(validos,[.25,.5,.75],method='linear') if len(validos) else [None]*3
-                nome_a=anual.composicao.loc[anual.composicao.bacia_id.eq(a),'Bacia'].iloc[0]
-                nome_b=linha.pop('Bacia comparada');linha.pop('bacia_id')
-                par=f'{int(a)}_{int(b)}'
-                pares.append({'par':par,'Bacia A':nome_a,'Bacia B':nome_b,'Q1':q[0],'Mediana':q[1],'Q3':q[2],**linha})
-                meta['anual_pares'][par]=arquivo.bloco(f'{chave}_ap_{par}',tabela(v))
-        meta['anual_resumo']=arquivo.bloco(f'{chave}_ar',tabela(pd.DataFrame(pares)))
-        del anual;gc.collect()
-    else:
-        meta['anual_aviso']='Nenhuma usina foi identificada no cadastro de bacias.'
-        meta['anos_completos']=[]; meta['anos_incompletos']=[];meta['anual_pares']={}
-        meta['anual_resumo']=arquivo.bloco(f'{chave}_ar',tabela(pd.DataFrame()))
-        meta['anual_medias']=arquivo.bloco(f'{chave}_am',{k:tabela(pd.DataFrame()) for k in ['sintetico','historico','composicao','sem_bacia']})
     frames={k:[] for k in ('medias','variancias','distribuicao')};resumos_p=[]
     horizonte=organizar_horizonte(fonte.calendario,tuple(fonte.calendario))
     with duckdb.connect() as con:

@@ -20,7 +20,7 @@ from dados.validacao_dados_cobre import localizar_fontes_deck,validar_historico
 from dados.cadastro_bacias import ler_cadastro_bacias
 import pandas as pd
 
-VERSAO='1.2.1'
+VERSAO='1.2.2'
 
 def agora():
     return datetime.now(ZoneInfo('America/Sao_Paulo'))

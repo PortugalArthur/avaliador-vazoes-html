@@ -83,7 +83,16 @@ async function testSummary(root,tipo,st,token){
  for(const m of M.modelos)results.push([m,summaries(objects(await load(m.testes[tipo])),st)]);if(token!==S.token)return;
  for(const [m,r] of results){const b=modelBox(sec,m,'Indicadores');metrics(b,r.metrics);note(b,'Usinas completamente aprovadas têm todos os estágios do intervalo calculados e nenhuma reprovação.');if(r.unavailable.length)note(b,`${fmt(r.unavailable.length)} combinação(ões) não calculada(s); os motivos estão nos memoriais.`,'aviso');}
  for(const [m,r] of results)table(modelBox(sec,m,'Resumo do teste por estágio'),r.stages,{key:m.key+tipo+'-estagios'});
- for(const [m,r] of results)table(modelBox(sec,m,'Ranking de usinas por estágios reprovados'),r.rank,{key:m.key+tipo+'-ranking'});
+ for(const [m,r] of results){
+  const box=modelBox(sec,m,'Ranking de usinas por estágios reprovados');
+  const rank=tipo==='medias'?r.rank.map(v=>({...v,'Raio espectral anual':m.raios_espectrais?.[String(v['ID da UHE'])]?.valor??null})):r.rank;
+  table(box,rank,{key:m.key+tipo+'-ranking'});
+  if(tipo==='medias'){
+   note(box,'Raio espectral da transição anual: calculado com os coeficientes mensais e anuais do ciclo completo de 12 meses. Independe do intervalo exibido e não é um p-valor. Entre 0 e 1, valores mais próximos de 1 indicam dissipação mais lenta do modo dominante.');
+   const ausentes=rank.filter(v=>!finite(v['Raio espectral anual']));
+   if(ausentes.length)details(box,'Raio espectral — valores indisponíveis',p=>table(p,ausentes.map(v=>({'Usina':v.Usina,'Motivo':m.raios_espectrais?.[String(v['ID da UHE'])]?.motivo||'Este HTML não contém o cálculo do raio espectral.'})),{key:m.key+'-raio-ausente'}));
+  }
+ }
 }
 async function sequenceSummary(root,token){
  const seq=E('section','secao');seq.append(E('h2','','Análise de sequências — P90 e P50'));root.append(seq);note(seq,'Percentual de usinas com percentil sintético estritamente maior que o histórico. Cada usina tem o mesmo peso. Igualdades entram no denominador; sem comparação não entra. Estes indicadores não são p-valores.');
@@ -91,39 +100,62 @@ async function sequenceSummary(root,token){
   details(seq,`Contagens e conferência do P${q} por usina`,async p=>{for(const [m,d] of data)table(modelBox(p,m,'Contagens'),objects(d.indicadores),{key:m.key+'-p'+q+'-cont'});for(const [m,d] of data)table(modelBox(p,m,'P'+q+' por usina'),objects(d.por_usina),{key:m.key+'-p'+q+'-uhe',cols:d.por_usina.c.filter(c=>c!=='comparavel')});});
  }
 }
-async function annualPlots(root,token){
- const st=getState('sin-espacial'),data=[],names=new Set();
- for(const m of M.modelos){const rows=objects(await load(m.anual_resumo));data.push({m,rows});for(const r of rows){names.add(r['Bacia A']);names.add(r['Bacia B']);}}if(token!==S.token)return;
- const options=[...names].sort((a,b)=>a.localeCompare(b,'pt-BR'));
- root.append(E('h2','','Correlação anual entre bacias'));
- note(root,'As vazões incrementais são somadas por bacia e transformadas em médias anuais. Cada cenário fornece uma correlação ao longo dos anos completos. A caixa mostra a distribuição dos cenários e o ponto preto mostra a correlação histórica.');
- if(!options.length){note(root,'Comparação anual indisponível: são necessárias ao menos duas bacias identificadas. Consulte os memoriais.','aviso');return;}
- if(!options.includes(st.basin))st.basin=options[0];const f=E('div','filtros');root.append(f);select(f,'Bacia de referência — correlação anual',options.map(n=>[n,n]),st.basin,v=>{st.basin=v;render();});
- const items=[];
- for(const {m,rows} of data){const tr=[],hx=[],hy=[],hd=[],related=rows.filter(r=>r['Bacia A']===st.basin||r['Bacia B']===st.basin).sort((a,b)=>{const other=r=>r['Bacia A']===st.basin?r['Bacia B']:r['Bacia A'];return other(a).localeCompare(other(b),'pt-BR');}),order=[];let legend=true,unavailable=0;
-  for(const row of related){const name=row['Bacia A']===st.basin?row['Bacia B']:row['Bacia A'],coef=objects(await load(m.anual_pares[row.par])),valid=coef.filter(r=>finite(r['Correlação']));if(token!==S.token)return;order.push(name);unavailable+=coef.length-valid.length;
-   if(valid.length){tr.push({type:'box',x:valid.map(()=>name),y:valid.map(r=>r['Correlação']),name:m.nome,legendgroup:m.key,showlegend:legend,quartilemethod:'linear',boxpoints:false,line:{color:m.cor,width:2},fillcolor:m.key==='novo'?'rgba(9,182,203,.4)':'rgba(197,106,26,.4)',marker:{color:m.cor}});legend=false;}
-   if(finite(row['Correlação histórica'])){hx.push(name);hy.push(row['Correlação histórica']);hd.push([row['Anos históricos pareados']]);}
-  }
-  if(hx.length)tr.push({type:'scatter',mode:'markers',name:'Histórico',x:hx,y:hy,customdata:hd,marker:{color:'#000000',size:11,line:{color:'white',width:1}},hovertemplate:'%{x}<br>Correlação histórica: %{y:.6f}<br>Anos pareados: %{customdata[0]}<extra>Histórico</extra>'});
-  items.push({m,fig:{data:tr,unit:'Correlação de Pearson das médias anuais — lag 0',range:[-1.05,1.05],layout:{xaxis:{title:'Bacia comparada',type:'category',categoryorder:'array',categoryarray:order,tickangle:-35,automargin:true}}}});
-  note(root,`${m.nome}: ${m.cenario_n} cenários; anos sintéticos completos: ${(m.anos_completos||[]).join(', ')||'nenhum'}.`);
-  if(m.anos_incompletos?.length)note(root,`${m.nome}: anos sem os 12 meses, excluídos desta análise: ${m.anos_incompletos.join(', ')}.`);
-  if(unavailable||hy.length<related.length)note(root,`${m.nome}: há correlações indisponíveis. Os motivos e as contagens permanecem nas tabelas e memoriais.`,'aviso');
- }
- await plotGroup(root,'Distribuição das correlações anuais — referência: '+st.basin,items,token);
- if(token!==S.token)return;note(root,'Cada caixa usa todos os coeficientes válidos dos cenários. O histórico utiliza todos os anos completos do recorte de cada modelo. As caixas são distribuições, não intervalos de confiança nem faixas de aprovação.');
+const basinTotalsCache=new WeakMap();
+async function basinTotals(m,id,token){
+ let cached=basinTotalsCache.get(m);if(!cached){cached=new Map();basinTotalsCache.set(m,cached);}
+ if(cached.has(id)){const value=cached.get(id);cached.delete(id);cached.set(id,value);return value;}
+ const total=await CorrelacaoBacias.somar(m,id,M.estagios,{load,array,isCurrent:()=>token===S.token,
+  onProgress:(n,total,name)=>{$('#estado').textContent=`Somando vazões de ${name}: ${n}/${total} usinas…`;},yieldControl:tick});
+ if(total){cached.set(id,total);while(cached.size>6)cached.delete(cached.keys().next().value);}return total;
 }
-async function annualDetails(root,token){await annualPlots(root,token);if(token!==S.token)return;
- for(const m of M.modelos){const rows=objects(await load(m.anual_resumo)),b=modelBox(root,m,'Resumo anual entre bacias');if(m.anual_aviso)note(b,m.anual_aviso,'aviso');table(b,rows,{key:m.key+'-det-anual',cols:rows.length?['Bacia A','Bacia B','Correlação histórica','Q1','Mediana','Q3','Cenários válidos','Cenários indisponíveis','Anos históricos pareados','Mínimo de anos por cenário','Máximo de anos por cenário','Motivo histórico']:[]});}if(token!==S.token)return;
- details(root,'Memorial anual — resumo completo dos pares de bacias',async p=>{for(const m of M.modelos)table(modelBox(p,m),objects(await load(m.anual_resumo)),{key:m.key+'-det-anual-completo'});});
- details(root,'Memorial anual — coeficientes por cenário e par de bacias',async p=>{for(const m of M.modelos){const b=modelBox(p,m),opts=objects(await load(m.anual_resumo)),f=E('div','filtros'),area=E('div');b.append(f,area);async function show(v){area.replaceChildren();if(v)table(area,objects(await load(m.anual_pares[v])),{key:m.key+'-ap-'+v});}select(f,'Par de bacias',opts.map(r=>[r.par,r['Bacia A']+' × '+r['Bacia B']]),opts[0]?.par||'',show);await show(opts[0]?.par);}});
- for(const campo of ['sintetico','historico','composicao','sem_bacia'])details(root,{'sintetico':'Memorial — médias anuais sintéticas','historico':'Memorial — médias anuais históricas','composicao':'Composição das bacias','sem_bacia':'Usinas sem bacia identificada'}[campo],async p=>{for(const m of M.modelos)table(modelBox(p,m),objects((await load(m.anual_medias))[campo]),{key:m.key+'-am-'+campo});});
- details(root,'Memorial mensal — UHE × UHE × estágio, lag 0',async p=>{const st=getState('sin-memorial-espacial'),f=E('div','filtros'),area=E('div');p.append(f,area);async function show(v){st.stage=+v;area.replaceChildren();for(const m of M.modelos)table(modelBox(area,m),await spatialRows(m,st.stage),{key:m.key+'-mensal-'+st.stage});}select(f,'Estágio',M.estagios.map(e=>[e.i,e.rotulo]),st.stage,show);await show(st.stage);});
+async function basinCorrelation(root,token){
+ const st=getState('sin-espacial'),names=new Map();
+ for(const m of M.modelos)for(const r of objects(m.cadastro))if(r.bacia_id!=null)names.set(String(r.bacia_id),r.Bacia);
+ const options=[...names].sort((a,b)=>a[1].localeCompare(b[1],'pt-BR'));
+ root.append(E('h2','','Correlação espacial entre bacias por estágio'));
+ note(root,'Somamos as vazões incrementais das usinas de cada bacia. Em cada estágio, calculamos Pearson entre os totais das duas bacias, pareados pelo mesmo cenário. No histórico, usamos apenas o mesmo mês civil, pareado pelo mesmo ano.');
+ if(options.length<2){note(root,'São necessárias ao menos duas bacias identificadas no estudo.','aviso');return;}
+ if(!names.has(st.baciaA))st.baciaA=options[0][0];
+ if(!names.has(st.baciaB)||st.baciaB===st.baciaA)st.baciaB=options.find(o=>o[0]!==st.baciaA)[0];
+ const filters=E('div','filtros');root.append(filters);
+ select(filters,'Bacia A',options,st.baciaA,v=>{st.baciaA=v;render();});
+ select(filters,'Bacia B',options.filter(o=>o[0]!==st.baciaA),st.baciaB,v=>{st.baciaB=v;render();});
+ const data=[];
+ for(const m of M.modelos){
+  const a=await basinTotals(m,st.baciaA,token);if(token!==S.token)return;
+  const b=await basinTotals(m,st.baciaB,token);if(token!==S.token)return;
+  if(!a||!b){note(root,`${m.nome}: uma das bacias selecionadas não possui usinas neste modelo.`,'aviso');continue;}
+  const comparison=CorrelacaoBacias.comparar(a,b,M.estagios),rows=comparison.rows;
+  data.push({m,a,b,comparison,rows});
+  note(root,`${m.nome}: ${a.nome} (${a.members.length} usinas) × ${b.nome} (${b.members.length} usinas).`);
+  const unavailable=rows.filter(r=>!finite(r['Correlação sintético'])||!finite(r['Correlação histórico']));
+  if(unavailable.length)note(root,`${unavailable.length} estágio(s) com alguma correlação indisponível. As contagens e os motivos estão no memorial.`,'aviso');
+ }
+ if(token!==S.token||!data.length)return;
+ await plotGroup(root,names.get(st.baciaA)+' × '+names.get(st.baciaB),data.map(({m,rows})=>({m,fig:{
+  unit:'Correlação de Pearson — lag 0',range:[-1.05,1.05],data:[
+   {type:'bar',x:rows.map(r=>r['Mês/ano']),y:rows.map(r=>r['Correlação sintético']),name:m.nome,marker:{color:m.cor},
+    customdata:rows.map(r=>r['Pares válidos sintético']),hovertemplate:'%{x}<br>Correlação: %{y:.6f}<br>Cenários pareados: %{customdata}<extra>%{fullData.name}</extra>'},
+   {type:'bar',x:rows.map(r=>r['Mês/ano']),y:rows.map(r=>r['Correlação histórico']),name:'Histórico mensal',marker:{color:'#000000'},
+    customdata:rows.map(r=>r['Pares válidos histórico']),hovertemplate:'%{x}<br>Correlação histórica: %{y:.6f}<br>Anos pareados do mesmo mês: %{customdata}<extra>Histórico mensal</extra>'}
+  ],layout:{barmode:'group',xaxis:{title:'Estágio e mês/ano',type:'category',tickangle:-45,gridcolor:'#e5e7eb'}}}})),token);
+ if(token!==S.token)return;
+ note(root,'A referência histórica de cada mês se repete nos anos do horizonte. Cada total exige dados válidos de todas as usinas da composição. Totais incompletos e correlações indefinidas ficam fora do cálculo, sem substituição por zero. Análise descritiva, sem decisão de aprovação.');
+ details(root,'Memorial de correlação entre bacias — todos os estágios',p=>{for(const v of data)table(modelBox(p,v.m),v.rows,{key:v.m.key+'-bacias-'+st.baciaA+'-'+st.baciaB});});
+ details(root,'Composição das bacias selecionadas',p=>{for(const v of data)table(modelBox(p,v.m),[...v.a.members,...v.b.members].map(r=>({'Bacia':r.Bacia,'ID da UHE':r.hydro_id,'Usina':r.Usina})),{key:v.m.key+'-bacias-composicao-'+st.baciaA+'-'+st.baciaB});});
+ details(root,'Memorial dos totais pareados — cenários e histórico',async p=>{
+  const filter=E('div','filtros'),area=E('div');p.append(filter,area);
+  function show(value){st.stage=Number(value);area.replaceChildren();for(const v of data){
+   const box=modelBox(area,v.m);note(box,`Bacia A: ${v.a.nome}. Bacia B: ${v.b.nome}. Estágio: ${M.estagios[st.stage].rotulo}.`);
+   table(box,CorrelacaoBacias.paresSinteticos(v.a,v.b,v.comparison,st.stage),{title:'Totais sintéticos por cenário',key:v.m.key+'-bacias-s-'+st.baciaA+'-'+st.baciaB+'-'+st.stage});
+   table(box,CorrelacaoBacias.paresHistoricos(v.a,v.b,v.comparison,M.estagios[st.stage].mes),{title:'Totais históricos do mesmo mês civil',key:v.m.key+'-bacias-h-'+st.baciaA+'-'+st.baciaB+'-'+st.stage});
+  }}
+  select(filter,'Estágio do memorial',M.estagios.map(e=>[e.i,e.rotulo]),st.stage,show);show(st.stage);
+ });
 }
 async function generalDetail(root,token){const st=getState('sin-'+S.tab);
+ if(S.tab==='espacial'){await basinCorrelation(root,token);return;}
  if(['medias','variancias','distribuicao'].includes(S.tab)){filters(root,st,{range:true});await testSummary(root,S.tab,st,token);if(token!==S.token)return;root.append(E('h2','','Memorial de cálculo — todas as usinas'));note(root,'Busca por nome e filtro de resultado aplicam-se ao memorial abaixo. Os indicadores, o resumo e o ranking consideram todas as usinas no intervalo de estágios.');filters(root,st,{search:true,status:true});for(const m of M.modelos){const rows=visible(objects(await load(m.testes[S.tab])),st);if(token!==S.token)return;table(modelBox(root,m,'Memorial completo'),rows,{key:m.key+'-sin-'+S.tab});}if(S.tab==='distribuicao')details(root,'Pontos das distribuições empíricas — UHE e estágio',p=>ksMemorial(p));}
- else if(S.tab==='espacial')await annualDetails(root,token);
  else if(S.tab==='sequencias'){await sequenceSummary(root,token);if(token!==S.token)return;root.append(E('h2','','Memoriais de sequências — todas as usinas'));filters(root,st,{search:true});note(root,'Horizonte completo; janelas históricas anuais sobrepostas. Somas e intensidades dos memoriais são assinadas. Zero válido não é evento artificial.');for(const [campo,title] of [['resumos','Resumos por trajetória'],['mlts','MLTs mensais'],['blocos','Janelas históricas'],['intervalos_nao_utilizados','Períodos fora da união das janelas'],['eventos','Sequências individuais'],['diagnosticos','Diagnósticos']])details(root,title,async p=>{for(const m of M.modelos){const b=modelBox(p,m);await sequenceTable(b,m,campo,M.usinas.filter(u=>!st.query||normal(u.nome).includes(normal(st.query))),m.key+'-sin-seq-'+campo);}});}
 }
 async function render(){const token=++S.token;window.AVALIADOR.ready=false;for(const o of observers)o.disconnect();observers.clear();document.querySelectorAll('.js-plotly-plot').forEach(e=>Plotly.purge(e));const nav=$('#abas');nav.replaceChildren();const tabs=Object.keys(TIT);if(!tabs.includes(S.tab))S.tab=tabs[0];for(const k of tabs){const b=E('button','',TIT[k]);b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-selected',String(k===S.tab));b.onclick=()=>{S.tab=k;render();};nav.append(b);}$('#visao-sin').classList.toggle('ativo',S.view==='sin');$('#visao-usina').classList.toggle('ativo',S.view==='usina');const root=$('#conteudo');root.replaceChildren();$('#estado').textContent='Carregando '+TIT[S.tab]+'…';try{if(S.view==='sin')await generalDetail(root,token);else await individual(root,token);if(token===S.token){$('#estado').textContent='';window.AVALIADOR.ready=true;}}catch(e){console.error(e);root.append(E('p','erro','Não foi possível preparar esta consulta: '+e.message));$('#estado').textContent='';window.AVALIADOR.ready=true;window.AVALIADOR.error=e.message;}}
@@ -151,7 +183,31 @@ async function ksMemorial(parent,uid=null,stage=null){const f=E('div','filtros')
  if(uid===null)select(f,'Usina',M.usinas.map(u=>[u.id,u.nome]),st.uid,v=>{st.uid=v;show();});if(stage===null)select(f,'Estágio',M.estagios.map(e=>[e.i,e.rotulo]),st.stage,v=>{st.stage=+v;show();});await show();}
 function line(x,y,name,color,more={}){return {type:'scatter',mode:'lines',x,y,name,line:{color,width:2.5},...more};}
 const stageX=rows=>rows.map(r=>M.estagios[r.ordem_estagio]?.rotulo||String(r.stage_id));
-function meanFigure(rows,m){const x=stageX(rows),tr=[];for(const [suf,n,c,fill] of [['historico','Histórico','#000000','rgba(0,0,0,.14)'],['sintetico',m.nome,m.cor,m.key==='novo'?'rgba(9,182,203,.18)':'rgba(197,106,26,.18)']]){const mean=rows.map(r=>r['media_'+(suf==='historico'?'historica':'sintetica')]??null),sd=rows.map(r=>r['desvio_padrao_'+suf]??null);tr.push(line(x,mean.map((v,i)=>finite(v)&&finite(sd[i])?v-sd[i]:null),n,c,{showlegend:false,line:{width:0},hoverinfo:'skip'}));tr.push(line(x,mean.map((v,i)=>finite(v)&&finite(sd[i])?v+sd[i]:null),n,c,{showlegend:false,line:{width:0},fill:'tonexty',fillcolor:fill,hoverinfo:'skip'}));tr.push(line(x,mean,n,c));}return {data:tr,unit:'Vazão incremental (m³/s)'};}
+const observedMeanBoundsCache=new WeakMap();
+function observedMeanBounds(d){
+ if(observedMeanBoundsCache.has(d))return observedMeanBoundsCache.get(d);
+ const N=M.estagios.length,flows=array(d.flows),history=array(d.hist_values);
+ if(!N||flows.length!==d.scenario_ids.length*N||history.length!==d.hist_dates.length)throw Error('Dimensões incompatíveis nas vazões dos limites observados.');
+ const bounds={sintetico:Array.from({length:N},()=>[null,null]),historico:Array.from({length:12},()=>[null,null])};
+ const include=(pair,value)=>{if(!finite(value))return;if(pair[0]===null||value<pair[0])pair[0]=value;if(pair[1]===null||value>pair[1])pair[1]=value;};
+ // A matriz mantém todos os cenários nas linhas e os estágios nas colunas.
+ for(let i=0;i<flows.length;i++)include(bounds.sintetico[i%N],flows[i]);
+ // O histórico incorporado já está recortado ao período selecionado da fonte.
+ for(let i=0;i<history.length;i++){const month=Number(d.hist_dates[i].slice(5,7));if(Number.isInteger(month)&&month>=1&&month<=12)include(bounds.historico[month-1],history[i]);}
+ observedMeanBoundsCache.set(d,bounds);return bounds;
+}
+function meanFigure(rows,m,d){
+ const x=stageX(rows),tr=[],bounds=observedMeanBounds(d);
+ for(const [suf,n,c,fill] of [['historico','Histórico','#000000','rgba(0,0,0,.14)'],['sintetico',m.nome,m.cor,m.key==='novo'?'rgba(9,182,203,.18)':'rgba(197,106,26,.18)']]){
+  const mean=rows.map(r=>r['media_'+(suf==='historico'?'historica':'sintetica')]??null);
+  const limits=rows.map(r=>suf==='historico'?bounds.historico[M.estagios[r.ordem_estagio].mes-1]:bounds.sintetico[r.ordem_estagio]);
+  const lower=limits.map(pair=>pair[0]),upper=limits.map(pair=>pair[1]);
+  tr.push(line(x,lower,n,c,{showlegend:false,line:{width:0},hoverinfo:'skip'}));
+  tr.push(line(x,upper,n,c,{showlegend:false,line:{width:0},fill:'tonexty',fillcolor:fill,hoverinfo:'skip'}));
+  tr.push(line(x,mean,n,c,{customdata:lower.map((value,i)=>[value,upper[i]]),hovertemplate:'%{x}<br>Média: %{y:.8g}<br>Mínimo observado: %{customdata[0]:.8g}<br>Máximo observado: %{customdata[1]:.8g}<extra>%{fullData.name}</extra>'}));
+ }
+ return {data:tr,unit:'Vazão incremental (m³/s)'};
+}
 function pFigure(rows){const good=rows.filter(valid),n=good.filter(r=>!fail(r)).length,p=good.length?fmt(100*n/good.length,'percentual')+'% aprovados':'Sem testes válidos';return {data:[{type:'bar',x:stageX(rows),y:rows.map(r=>valid(r)?r.p_valor:null),marker:{color:rows.map(r=>fail(r)?'#DC2626':'#16A34A')},name:'p-valor',hovertemplate:'%{x}<br>p-valor: %{y:.8g}<extra></extra>'}],unit:'p-valor',range:[0,1],layout:{shapes:[{type:'line',xref:'paper',x0:0,x1:1,y0:.05,y1:.05,line:{color:'#FF8C00',width:3}}],annotations:[{x:1,y:1.08,xref:'paper',yref:'paper',xanchor:'right',yanchor:'bottom',text:p,showarrow:false,bgcolor:'white',bordercolor:'#111827',borderwidth:1,borderpad:6},{x:0,y:.05,xref:'paper',yref:'y',text:'α = 0,05',showarrow:false,xanchor:'left',yanchor:'bottom'}]}};}
 function flowBoxes(d,st,m){const traces=[];for(const source of ['s','h']){const x=[],y=[];for(let i=st.lo;i<=st.hi;i++){for(const v of samples(d,i)[source])if(finite(v)){x.push(M.estagios[i].rotulo);y.push(v);}}traces.push({type:'box',x,y,name:source==='s'?m.nome:'Histórico mensal',quartilemethod:'linear',boxpoints:'outliers',line:{color:source==='s'?m.cor:'#000000',width:1.4},marker:{color:source==='s'?m.cor:'#000000',size:3},fillcolor:source==='s'?(m.key==='novo'?'rgba(9,182,203,.25)':'rgba(197,106,26,.25)'):'rgba(0,0,0,.15)'});}return {data:traces,unit:'Vazão incremental (m³/s)',layout:{boxmode:'group'}};}
 function density(values,param,name,color){
@@ -175,12 +231,12 @@ async function individual(root,token){const tab=S.tab,st=getState('uhe-'+tab),ba
  const nome=M.usinas.find(u=>String(u.id)===st.uid)?.nome||'',items=[];
  for(const m of M.modelos){const d=await uheData(m,st.uid,tab==='sequencias'?['resumos']:[]),id=m.uhe[st.uid].id_original,rows=basic?objects(await load(m.testes[tab])).filter(r=>r.hydro_id===id&&r.ordem_estagio>=st.lo&&r.ordem_estagio<=st.hi).sort((a,b)=>a.ordem_estagio-b.ordem_estagio):[];items.push({m,d,rows});}if(token!==S.token)return;root.append(E('h2','',nome));
  if(tab==='medias'){
-  await plotGroup(root,'Médias e desvios padrão por estágio',items.map(v=>({m:v.m,fig:meanFigure(v.rows,v.m)})),token);
+  await plotGroup(root,'Médias, mínimos e máximos observados por estágio',items.map(v=>({m:v.m,fig:meanFigure(v.rows,v.m,v.d)})),token);
+  note(root,'Sombreados: mínimo e máximo observados nos cenários de cada estágio e, no histórico, no mês civil correspondente do período selecionado.');
   await plotGroup(root,'Distribuição das vazões incrementais por estágio',items.map(v=>({m:v.m,fig:flowBoxes(v.d,st,v.m)})),token);
   await plotGroup(root,'P-valor do teste de médias por estágio',items.map(v=>({m:v.m,fig:pFigure(v.rows)})),token);
  }else if(tab==='variancias'){
-  await plotGroup(root,'Módulo dos desvios padrão por estágio',items.map(v=>({m:v.m,fig:{data:[line(stageX(v.rows),v.rows.map(r=>r.desvio_padrao_historico),'Histórico','#000000'),line(stageX(v.rows),v.rows.map(r=>r.desvio_padrao_sintetico),v.m.nome,v.m.cor)],unit:'Desvio padrão (m³/s)'}})),token);
-  await plotGroup(root,'Diferença dos desvios padrão — sintético menos histórico',items.map(v=>({m:v.m,fig:{data:[line(stageX(v.rows),v.rows.map(r=>finite(r.desvio_padrao_sintetico)&&finite(r.desvio_padrao_historico)?r.desvio_padrao_sintetico-r.desvio_padrao_historico:null),'Diferença','#F04B23')],unit:'Diferença (m³/s)'}})),token);
+  await plotGroup(root,'Desvios padrão por estágio',items.map(v=>({m:v.m,fig:{data:[line(stageX(v.rows),v.rows.map(r=>r.desvio_padrao_historico),'Histórico','#000000'),line(stageX(v.rows),v.rows.map(r=>r.desvio_padrao_sintetico),v.m.nome,v.m.cor)],unit:'Desvio padrão (m³/s)'}})),token);
   await plotGroup(root,'P-valor do teste de variâncias por estágio',items.map(v=>({m:v.m,fig:pFigure(v.rows)})),token);
  }else if(tab==='distribuicao'){
   const figs=items.map(v=>({m:v.m,figs:ksFigures(v.d,v.rows.find(r=>r.ordem_estagio===st.stage),st.stage,v.m)}));
