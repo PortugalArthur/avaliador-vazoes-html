@@ -1,4 +1,2 @@
 @echo off
-cd /d "%~dp0"
-python -m aplicacao.exportar_csv
-if errorlevel 1 pause
+"%~dp0iniciar_avaliador.bat" aplicacao.exportar_csv %*

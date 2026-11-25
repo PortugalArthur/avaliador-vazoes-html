@@ -15,6 +15,7 @@ from collections.abc import Mapping
 
 
 PASTA_PROJETO = Path(__file__).resolve().parents[1]
+PYTHON_PORTATIL = Path(sys.executable).resolve().parent == PASTA_PROJETO / "_python"
 ETIQUETA_AMBIENTE = f"{sys.implementation.cache_tag}-{sysconfig.get_platform()}"
 PASTA_DEPENDENCIAS = PASTA_PROJETO / ".python_packages" / ETIQUETA_AMBIENTE
 
@@ -74,10 +75,16 @@ def garantir_dependencias(dependencias: Mapping[str, str]) -> None:
         mensagem = "Estes programas precisam do Python 3.10 ou mais recente."
         _mostrar_falha(mensagem)
         raise SystemExit(1)
-    _adicionar_pasta_local()
+    if not PYTHON_PORTATIL:
+        _adicionar_pasta_local()
     ausentes = [pacote for modulo, pacote in dependencias.items() if not _dependencia_disponivel(modulo, pacote)]
     if not ausentes:
         return
+
+    if PYTHON_PORTATIL:
+        mensagem = "Bibliotecas ausentes no pacote portátil: " + ", ".join(ausentes)
+        _mostrar_falha(mensagem + "\nExtraia novamente todo o ZIP portátil.")
+        raise SystemExit(1)
 
     PASTA_DEPENDENCIAS.mkdir(parents=True, exist_ok=True)
     print("Preparando as bibliotecas necessárias na primeira execução...", flush=True)

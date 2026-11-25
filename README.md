@@ -1,6 +1,6 @@
 # Avaliador de vazões em HTML
 
-Versão **1.2.0**. Avaliação de séries de vazões incrementais do novo modelo
+Versão **1.2.1**. Avaliação de séries de vazões incrementais do novo modelo
 (COBRE) e do NEWAVE contra seus respectivos históricos, em relatório HTML offline.
 
 Abra **GERAR_RELATORIO_HTML.bat** para selecionar as entradas e gerar o relatório.
@@ -31,24 +31,36 @@ navegador, sem servidor ou conexão com a internet.
 Os atalhos **GERAR_PARQUET_NOVO_MODELO.bat** e **GERAR_PARQUET_NEWAVE.bat**
 executam as cópias independentes dos geradores reaproveitados.
 
-## Requisitos e primeira execução
+## Instalação no Windows de 64 bits
 
-- Windows para a janela e os atalhos `.bat`.
-- Python 3.10 ou superior, com `pip` e `Tkinter`, disponível pelo comando `python`.
-  A execução foi verificada com Python 3.12.
-- Internet para instalar bibliotecas ausentes na primeira execução.
+1. Baixe o pacote [AVALIADOR_VAZOES_HTML_WINDOWS_X64.zip](https://github.com/PortugalArthur/avaliador-vazoes-html/releases/latest/download/AVALIADOR_VAZOES_HTML_WINDOWS_X64.zip).
+2. Extraia todo o ZIP para uma pasta gravável. Mantenha `_python` ao lado dos atalhos `.bat`.
+3. Abra `GERAR_RELATORIO_HTML.bat` e selecione o deck e os Parquets do estudo.
 
-As bibliotecas são verificadas e instaladas automaticamente em `.python_packages/`
-quando necessário. Também é possível instalá-las com:
+O pacote inclui CPython, Tcl/Tk e as bibliotecas. Funciona sem instalação de
+Python, sem alteração no PATH e sem internet. A página de Releases também
+oferece o SHA-256 para conferir o download.
+
+### Execução a partir do código-fonte
+
+Os atalhos procuram um Python de 64 bits, a partir da versão 3.10, com Tcl/Tk.
+Eles reconhecem um ambiente virtual `.venv`, executáveis no PATH, instalações
+listadas pelo launcher `py` e instalações registradas no Windows. Na primeira
+execução com dependências ausentes, o Python precisa de `pip` e acesso à internet.
+As dependências são instaladas em `.python_packages/`.
+
+Para preparar um ZIP a partir de um commit, em uma máquina Windows x64 com
+Git e CPython completo com Tcl/Tk e `pip`, execute na raiz do repositório.
 
 ```powershell
-python -m pip install -r requirements.txt
+python -m infraestrutura.empacotar_portatil --destino outputs/distribuicao --ref HEAD
 ```
 
-O repositório contém o programa, o cadastro de bacias, os testes, as licenças das
-bibliotecas incorporadas e a documentação. Os insumos do estudo são selecionados
-pelo usuário: pasta do deck COBRE e um ou dois Parquets de cenários. Relatórios,
-insumos e bibliotecas instaladas localmente são ignorados pelo Git.
+O empacotador monta o pacote a partir dos arquivos versionados no commit,
+instala as dependências e verifica os cinco atalhos com o PATH restrito aos
+utilitários do Windows. O manifesto do ZIP indica o commit e as versões usadas.
+Os arquivos do estudo são selecionados separadamente. Relatórios, insumos e
+bibliotecas instaladas localmente são ignorados pelo Git.
 
 ## Organização das análises
 
