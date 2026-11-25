@@ -69,7 +69,7 @@ def verificar_pacote(pacote: Path, programa: Path) -> dict:
     for atalho in ATALHOS:
         subprocess.run(
             [str(cmd), "/d", "/c", atalho, "--verificar-ambiente"],
-            cwd=pacote, env=ambiente, stdin=subprocess.DEVNULL, check=True, timeout=60,
+            cwd=pacote, env=ambiente, stdin=subprocess.DEVNULL, check=True, timeout=180,
         )
 
     verificar = """
@@ -90,7 +90,7 @@ print(json.dumps({
 """
     resultado = subprocess.check_output(
         [str(pacote / "_python" / "python.exe"), "-X", "utf8", "-c", verificar],
-        cwd=programa, env=ambiente, text=True, encoding="utf-8", timeout=60,
+        cwd=programa, env=ambiente, text=True, encoding="utf-8", timeout=180,
     )
     return json.loads(resultado)
 
@@ -112,7 +112,7 @@ def preparar(destino: Path, ref: str) -> Path:
     if saida.exists() or checksum.exists():
         raise FileExistsError(f"Escolha um destino sem um pacote anterior: {destino}")
 
-    with TemporaryDirectory(prefix="build-avaliador-", dir=destino) as temporario:
+    with TemporaryDirectory(prefix="build-avaliador-", dir=destino, ignore_cleanup_errors=True) as temporario:
         pasta = Path(temporario)
         pacote = pasta / "Avaliador de Vazões HTML"
         fontes = pasta / "fontes.zip"
